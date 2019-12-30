@@ -49,14 +49,19 @@ public class Resource {
             //生产一个
             if(sign == 0){
                 list1.add(f);
+                if(list1.size() == 10000) {
+                    flag = true;
+                    condition_con.signal();
+                }
             }else{
                 list2.add(f);
+                if(list2.size() == 10000) {
+                    flag = true;
+                    condition_con.signal();
+                }
             }
             //生产者生产完毕后，唤醒消费者的线程（注意这里不是signalAll)
-            if(list1.size() == 100 || list2.size() == 100) {
-                flag = true;
-                condition_con.signal();
-            }
+
         }finally{
             lock.unlock();
         }
@@ -84,7 +89,10 @@ public class Resource {
         if(sign == 1) {
             try {
                 writeInto(list1);
-//                System.out.println("输出list1");
+                /**
+                //查看插入线程是否不间断运行和两个list是否交替使用
+                System.out.println("输出list1 " + "list1:" + list1.size() + " list2:" + list2.size());
+                 */
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -93,12 +101,16 @@ public class Resource {
         }else{
             try {
                 writeInto(list2);
-//                System.out.println("输出list2");
+                /**
+                //查看插入线程是否不间断运行和两个list是否交替使用
+                System.out.println("输出list2 " + "list1: " + list1.size() + " list2: " + list2.size());
+                 */
             } catch (IOException e) {
                 e.printStackTrace();
             }
             //将资源标记为已经消费,清空列表
             list2.clear();
+
         }
     }
 
