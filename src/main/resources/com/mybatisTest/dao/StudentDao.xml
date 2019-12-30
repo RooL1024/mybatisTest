@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper标签要指定namespace属性，不然会报错，可看做包名-->
+<mapper namespace="com.mybatisTest.dao.StudentDao">
+
+
+    <select id="findById" resultType="com.mybatisTest.domain.Student" parameterType="int">
+        select * from student where id = #{id}
+    </select>
+
+
+
+    <select id="countAll" resultType="int">
+        select count(id) from student
+    </select>
+
+
+    <insert id="insertStudent" parameterType="com.mybatisTest.domain.Student">
+        <!-- AFTER：此中语句在插入语句之后执行
+                 resultType=“int”: 此中语句执行后的返回类型是 int
+                 keyProperty="id": 此中语句返回值要 传递给当前方法参数中的id属性 (com.zhj.domain.User的id属性)
+                 select last_insert_id()：mysql特性语句，返回当前事务中，最近一次插入的数据的id-->
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+            select last_insert_id()
+        </selectKey>
+        insert into student(sNumber,name,age,sex,class,grade,profession,academy,tName,phone,email,birth,location)
+            values(#{student_number},#{name},#{age},#{sex},#{classNum},#{grade},#{profession},#{academy},#{teacher_name},#{phone_number},#{Email},#{birthday},#{location})
+    </insert>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from student where id = #{id}
+    </delete>
+
+    <update id="updateStudent" parameterType="com.mybatisTest.domain.Student">
+        update student set name = #{name}, age = #{age}, sex = #{sex}
+        where id = #{id}
+    </update>
+
+<!--    <select id="getAllstudent" resultType="Student">-->
+<!--        select * from student-->
+<!--    </select>-->
+
+
+
+</mapper>
