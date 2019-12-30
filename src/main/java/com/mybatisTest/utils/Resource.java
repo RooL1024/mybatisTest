@@ -11,8 +11,10 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Resource {
-    private volatile List<String> list = new ArrayList<String>();
+    private volatile List<String> list1 = new ArrayList<String>();
+    private volatile List<String> list2 = new ArrayList<String>();
     private boolean flag = false;
+    int sign = 0;
     private Lock lock = new ReentrantLock();
     //使用lock建立生产者的condition对象
     private Condition condition_pro = lock.newCondition();
@@ -20,11 +22,13 @@ public class Resource {
     private Condition condition_con = lock.newCondition();
 
 
-    public void writeInto(String time) throws IOException {
+    public void writeInto(List<String> li) throws IOException {
         File writename = new File("file/TPS.txt"); // 相对路径，如果没有则要建立一个新的output.txt文件
         writename.createNewFile(); // 创建新文件
         BufferedWriter out = new BufferedWriter(new FileWriter(writename,true));
-        out.write(time+"\r\n"); // \r\n即为换行
+        for(String i:li) {
+            out.write(i + "\r\n"); // \r\n即为换行
+        }
         out.flush(); // 把缓存区内容压入文件
         out.close(); // 最后记得关闭文件
     }
@@ -43,9 +47,13 @@ public class Resource {
                 condition_pro.await();
             }
             //生产一个
-            list.add(f);
+            if(sign == 0){
+                list1.add(f);
+            }else{
+                list2.add(f);
+            }
             //生产者生产完毕后，唤醒消费者的线程（注意这里不是signalAll)
-            if(list.size()==100) {
+            if(list1.size() == 100 || list2.size() == 100) {
                 flag = true;
                 condition_con.signal();
             }
@@ -65,18 +73,32 @@ public class Resource {
                 //消费者等待
                 condition_con.await();
             }
-            for(int i = 0;i < list.size();i++) {
-                writeInto(list.get(i));
-            }
-            //将资源标记为已经消费,清空列表
-            list.clear();
+            sign = (sign + 1) % 2;
             flag = false;
             //消费者消费完毕后，唤醒生产者的线程
             condition_pro.signalAll();
-        } catch (IOException e) {
-            e.printStackTrace();
         } finally{
             lock.unlock();
+        }
+        //输出到文件
+        if(sign == 1) {
+            try {
+                writeInto(list1);
+//                System.out.println("输出list1");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //将资源标记为已经消费,清空列表
+            list1.clear();
+        }else{
+            try {
+                writeInto(list2);
+//                System.out.println("输出list2");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //将资源标记为已经消费,清空列表
+            list2.clear();
         }
     }
 

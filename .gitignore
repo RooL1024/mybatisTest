@@ -28,3 +28,4 @@ hs_err_pid*
 !/axis.log
 !/mybatisTest.iml
 /.idea/
+!/axis.log
