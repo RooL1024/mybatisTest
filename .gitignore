@@ -29,3 +29,5 @@ hs_err_pid*
 !/mybatisTest.iml
 /.idea/
 !/axis.log
+/QPS.txt
+/TPS.txt

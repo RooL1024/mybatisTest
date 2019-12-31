@@ -1,11 +1,6 @@
 package com.mybatisTest.thread;
 
 import com.mybatisTest.utils.Resource;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.List;
 
 
 public class LogThread implements Runnable{
@@ -25,7 +20,7 @@ public class LogThread implements Runnable{
             try {
                 resource.destroy();
                 //查看插入条数
-                System.out.println(num++);
+                System.out.println("已插入 " + (num++) + " 万条数据");
             } catch (Exception e) {
                 e.printStackTrace();
             }

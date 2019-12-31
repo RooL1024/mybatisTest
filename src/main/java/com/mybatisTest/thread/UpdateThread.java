@@ -36,7 +36,6 @@ public class UpdateThread implements Runnable{
             student.setAge(22);
             student.setSex("男");
             int res = studentDao.updateStudent(student);
-            System.out.println(res);
             long endTime = System.nanoTime();//记录结束时间
             excTime = (double) (endTime - startTime)/1000000;//计算插入操作耗费时间
             session.commit();

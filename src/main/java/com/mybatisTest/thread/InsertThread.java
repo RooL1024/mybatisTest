@@ -25,8 +25,8 @@ public class InsertThread implements Runnable{
 
     public static Student setStudent(){
         Student student = new Student();
-        student.setStudent_number(1832133);
-        student.setName("任乐");
+        student.setStudent_number(1832134);
+        student.setName("任乐1");
         student.setAge(24);
         student.setSex("男");
         student.setClassNum(4);
