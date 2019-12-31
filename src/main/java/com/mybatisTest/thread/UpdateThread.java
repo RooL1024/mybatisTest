@@ -9,14 +9,14 @@ import org.apache.ibatis.session.SqlSession;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class QueryThread implements Runnable{
+public class UpdateThread implements Runnable{
     private Count count;
     private Resource resource;
     double excTime;
     Lock lock = new ReentrantLock();
 
 
-    public QueryThread(Count count, Resource resource) {
+    public UpdateThread(Count count, Resource resource) {
         this.count = count;
         this.resource = resource;
     }
@@ -30,7 +30,13 @@ public class QueryThread implements Runnable{
 
         while(true) {
             long startTime = System.nanoTime();//记录开始时间
-            Student stu = studentDao.findByName("小张");
+            //修改信息操作
+            Student student = studentDao.findById(1003);
+            student.setName("张亚楠");
+            student.setAge(22);
+            student.setSex("男");
+            int res = studentDao.updateStudent(student);
+            System.out.println(res);
             long endTime = System.nanoTime();//记录结束时间
             excTime = (double) (endTime - startTime)/1000000;//计算插入操作耗费时间
             session.commit();
