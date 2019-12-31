@@ -23,7 +23,7 @@ public class Resource {
 
 
     public void writeInto(List<String> li) throws IOException {
-        File writename = new File("file/TPS.txt"); // 相对路径，如果没有则要建立一个新的output.txt文件
+        File writename = new File("C:\\Users\\Renle\\Desktop\\TPS.txt"); // 相对路径，如果没有则要建立一个新的output.txt文件
         writename.createNewFile(); // 创建新文件
         BufferedWriter out = new BufferedWriter(new FileWriter(writename,true));
         for(String i:li) {
@@ -46,22 +46,22 @@ public class Resource {
                 //生产者等待
                 condition_pro.await();
             }
-            //生产一个
+            //将产生的时间数据添加到list，并判断添加到哪个list
             if(sign == 0){
                 list1.add(f);
                 if(list1.size() == 10000) {
                     flag = true;
+                    //唤醒消费者的线程
                     condition_con.signal();
                 }
             }else{
                 list2.add(f);
                 if(list2.size() == 10000) {
                     flag = true;
+                    //唤醒消费者的线程
                     condition_con.signal();
                 }
             }
-            //生产者生产完毕后，唤醒消费者的线程（注意这里不是signalAll)
-
         }finally{
             lock.unlock();
         }

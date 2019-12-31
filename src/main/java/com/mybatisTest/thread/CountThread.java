@@ -19,7 +19,7 @@ public class CountThread implements Runnable{
     }
 
     public void writeIntoFile(String s) throws IOException {
-        File file = new File("file/QPS.txt");
+        File file = new File("C:\\Users\\Renle\\Desktop\\QPS.txt");
         if (!file.exists()){
             file.createNewFile();
         }
