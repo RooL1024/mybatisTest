@@ -49,14 +49,14 @@ public class Resource {
             //将产生的时间数据添加到list，并判断添加到哪个list
             if(sign == 0){
                 list1.add(f);
-                if(list1.size() == 10000) {
+                if(list1.size() == 1000) {
                     flag = true;
                     //唤醒消费者的线程
                     condition_con.signal();
                 }
             }else{
                 list2.add(f);
-                if(list2.size() == 10000) {
+                if(list2.size() == 1000) {
                     flag = true;
                     //唤醒消费者的线程
                     condition_con.signal();

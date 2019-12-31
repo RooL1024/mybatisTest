@@ -14,7 +14,7 @@ public class CountThread implements Runnable{
     int sec = 1;
     int temp = 0;
 
-    public CountThread(Count count) throws IOException {
+    public CountThread(Count count) {
         this.count = count;
     }
 

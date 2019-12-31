@@ -1,4 +1,4 @@
-package com.mybatisTest;
+package com.mybatisTest.test;
 
 import com.mybatisTest.thread.CountThread;
 import com.mybatisTest.thread.InsertThread;
@@ -13,14 +13,14 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class TestThread {
+public class TestInsert {
     public static void main(String[] args) throws Exception {
         Count count = new Count();
         Resource resource = new Resource();
 
         //读取配置文件里的线程数
         Properties props = new Properties();
-        InputStream in = TestThread.class.getResourceAsStream("/config.properties");
+        InputStream in = TestInsert.class.getResourceAsStream("/config.properties");
         props.load(in);
         in.close();
         // 读取线程数设置
