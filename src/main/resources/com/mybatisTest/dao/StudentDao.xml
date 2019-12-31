@@ -6,18 +6,22 @@
 <!-- mapper标签要指定namespace属性，不然会报错，可看做包名-->
 <mapper namespace="com.mybatisTest.dao.StudentDao">
 
-
+    <!-- 使用id查询student信息 -->
     <select id="findById" resultType="com.mybatisTest.domain.Student" parameterType="int">
         select * from student where id = #{id}
     </select>
 
+    <!-- 使用姓名查询student信息 -->
+    <select id="findByName" resultType="com.mybatisTest.domain.Student" parameterType="String">
+        select * from student where name = #{name}
+    </select>
 
-
+    <!-- 查询所有student数量-->
     <select id="countAll" resultType="int">
         select count(id) from student
     </select>
 
-
+    <!-- 插入student信息-->
     <insert id="insertStudent" parameterType="com.mybatisTest.domain.Student">
         <!-- AFTER：此中语句在插入语句之后执行
                  resultType=“int”: 此中语句执行后的返回类型是 int
@@ -30,18 +34,16 @@
             values(#{student_number},#{name},#{age},#{sex},#{classNum},#{grade},#{profession},#{academy},#{teacher_name},#{phone_number},#{Email},#{birthday},#{location})
     </insert>
 
+    <!-- 根据id删除student-->
     <delete id="deleteById" parameterType="java.lang.Integer">
         delete from student where id = #{id}
     </delete>
 
+    <!-- 根据使用id查询得来的student对象更新信息-->
     <update id="updateStudent" parameterType="com.mybatisTest.domain.Student">
         update student set name = #{name}, age = #{age}, sex = #{sex}
         where id = #{id}
     </update>
-
-<!--    <select id="getAllstudent" resultType="Student">-->
-<!--        select * from student-->
-<!--    </select>-->
 
 
 

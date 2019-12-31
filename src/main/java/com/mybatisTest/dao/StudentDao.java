@@ -7,6 +7,8 @@ public interface StudentDao {
 
     public Student findById(Integer id);
 
+    public Student findByName(String name);
+
     public int countAll();
 
     public int insertStudent(Student student);

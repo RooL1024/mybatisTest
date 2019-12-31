@@ -30,7 +30,7 @@ public class QueryThread implements Runnable{
 
         while(true) {
             long startTime = System.nanoTime();//记录开始时间
-            Student stu = studentDao.findById(199);
+            Student stu = studentDao.findByName("小张");
             System.out.println(stu);
             long endTime = System.nanoTime();//记录结束时间
             excTime = (double) (endTime - startTime)/1000000;//计算插入操作耗费时间

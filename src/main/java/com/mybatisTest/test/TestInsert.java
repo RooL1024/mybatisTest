@@ -25,8 +25,8 @@ public class TestInsert {
         in.close();
         // 读取线程数设置
         int threads_num = Integer.parseInt(props.getProperty("Threads"));
-//        配置线程池对象
-        ExecutorService pool = Executors.newFixedThreadPool(threads_num+1);
+        // 配置线程池对象
+        ExecutorService pool = Executors.newFixedThreadPool(threads_num + 1);
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         //创建线程类对象
         CountThread cou = new CountThread(count);
@@ -34,7 +34,7 @@ public class TestInsert {
         InsertThread ins = new InsertThread(count, resource);
         //启动线程
         pool.submit(log);
-        for(int i = 0;i < threads_num;i++){
+        for(int i = 0; i < threads_num; i++){
             pool.submit(ins);
         }
         //统计线程每秒统计

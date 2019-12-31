@@ -25,7 +25,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>com/mybatisTest/TestThread</mainClass>
+                  <mainClass>com/mybatisTest/test/TestInsert</mainClass>
                 </transformer>
               </transformers>
             </configuration>

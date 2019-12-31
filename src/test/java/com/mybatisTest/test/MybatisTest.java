@@ -28,6 +28,11 @@ public class MybatisTest {
         System.out.println(stu);
     }
 
+    @Test
+    public void testQuery(){
+        Student stu = studentDao.findByName("小张");
+        System.out.println(stu);
+    }
 
     @Test
     public void testcountAll(){
@@ -69,9 +74,9 @@ public class MybatisTest {
     @Test
     public void testUpdate(){
         Student student = studentDao.findById(1001);
-        student.setName("小张");
-        student.setAge(23);
-        student.setSex("女");
+        student.setName("张亚楠");
+        student.setAge(22);
+        student.setSex("男");
         int res = studentDao.updateStudent(student);
         System.out.println(res);
 
