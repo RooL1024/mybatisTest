@@ -31,11 +31,10 @@ public class UpdateThread implements Runnable{
         while(true) {
             long startTime = System.nanoTime();//记录开始时间
             //修改信息操作
-            Student student = studentDao.findById(1003);
-            student.setName("张亚楠");
+            Student student = studentDao.findById(1234);
+            student.setName("小张");
             student.setAge(22);
-            student.setSex("男");
-            int res = studentDao.updateStudent(student);
+            student.setSex("女");
             long endTime = System.nanoTime();//记录结束时间
             excTime = (double) (endTime - startTime)/1000000;//计算插入操作耗费时间
             session.commit();

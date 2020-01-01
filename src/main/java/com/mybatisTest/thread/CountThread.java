@@ -2,7 +2,6 @@ package com.mybatisTest.thread;
 
 
 import com.mybatisTest.utils.Count;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;

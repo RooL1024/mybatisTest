@@ -1,7 +1,6 @@
 package com.mybatisTest.thread;
 
 import com.mybatisTest.dao.StudentDao;
-import com.mybatisTest.domain.Student;
 import com.mybatisTest.utils.Count;
 import com.mybatisTest.utils.MysqlUtils;
 import com.mybatisTest.utils.Resource;
@@ -30,7 +29,7 @@ public class QueryThread implements Runnable{
 
         while(true) {
             long startTime = System.nanoTime();//记录开始时间
-            Student stu = studentDao.findByName("小张");
+            int num = studentDao.countAll();
             long endTime = System.nanoTime();//记录结束时间
             excTime = (double) (endTime - startTime)/1000000;//计算插入操作耗费时间
             session.commit();
